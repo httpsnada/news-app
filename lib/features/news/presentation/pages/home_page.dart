@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/core/network/api_client.dart';
-import 'package:news_app/core/network/api_services.dart';
-import 'package:news_app/features/news/data/repositories/news_repository.dart';
+import 'package:news_app/core/di/service_locator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   void testApi() async {
     try {
-      final repo = NewsRepository(apiService: ApiService(dio: ApiClient().dio));
+      final repo = ServiceLocator.newsRepository;
       final articles = await repo.getArticlesBySource(source: "bbc-sport");
       print("here are the status : ");
       print(articles.articles?.length);

@@ -54,6 +54,7 @@ This app uses the **NewsAPI** to fetch articles and sources.
 lib/
 │
 ├── core/
+│   ├── di/
 │   ├── constants/
 │   ├── errors/
 │   └── network/
