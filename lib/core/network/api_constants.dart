@@ -6,8 +6,8 @@ class ApiConstants {
 }
 
 class EndPoints {
-  static String baseUrl = dotenv.env['BASE_URL']!;
-  static String newsEndpoint = dotenv.env['NEWS_ENDPOINT']!;
-  static String sourcesEndpoint = dotenv.env['SOURCES_ENDPOINT']!;
-  static String apiKey = dotenv.env['API_KEY']!;
+  static String baseUrl = dotenv.env['BASE_URL'] ?? '';
+  static String newsEndpoint = dotenv.env['NEWS_ENDPOINT'] ?? '';
+  static String sourcesEndpoint = dotenv.env['SOURCES_ENDPOINT'] ?? '';
+  static String apiKey = dotenv.env['API_KEY'] ?? 'NO_KEY';
 }

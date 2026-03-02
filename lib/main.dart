@@ -4,7 +4,11 @@ import 'package:news_app/features/news/presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    print("ENV ERROR: $e");
+  }
   runApp(const MyApp());
 }
 

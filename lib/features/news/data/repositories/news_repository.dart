@@ -1,0 +1,44 @@
+import 'package:news_app/core/network/api_constants.dart';
+import 'package:news_app/core/network/api_services.dart';
+
+import '../models/articles/Articles_model.dart';
+
+class NewsRepository {
+  final ApiService apiService;
+
+  NewsRepository({required this.apiService});
+
+  Future<ArticlesModel> getAllArticles({
+    int page = 1,
+    int pageSize = 10,
+  }) async {
+    final response = await apiService.get(
+      endpoint: EndPoints.newsEndpoint,
+      queryParameters: {'page': page, 'pageSize': pageSize},
+    );
+    // final List<dynamic>? articles = response['articles'];
+    // if (articles == null) {
+    //   return [];
+    // }
+    // return articles.map((e) => Articles.fromJson(e)).toList();
+    final articlesModel = ArticlesModel.fromJson(response);
+    return articlesModel;
+    //  return articlesModel.articles ?? [];
+  }
+
+  Future<ArticlesModel> searchForArticles({
+    required String keyword,
+    int page = 1,
+    int pageSize = 10,
+  }) async {
+    final response = await apiService.get(
+      endpoint: EndPoints.newsEndpoint,
+      queryParameters: {'q': keyword, 'page': page, 'pageSize': pageSize},
+    );
+    final articlesModel = ArticlesModel.fromJson(response);
+    return articlesModel;
+  }
+}
+
+// we parse the whole response using the response model, to be able to access things like totalResults and the full article list
+// we cant parse article.fromJson directly bc fromJson expect a map while the response is a list (dynamic), so we need to parse the full response
