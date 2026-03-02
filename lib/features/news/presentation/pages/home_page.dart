@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   void testApi() async {
     try {
       final repo = NewsRepository(apiService: ApiService(dio: ApiClient().dio));
-      final articles = await repo.searchForArticles(keyword: "bitcoin");
+      final articles = await repo.getArticlesBySource(source: "bbc-sport");
       print("here are the status : ");
       print(articles.articles?.length);
       print(articles.totalResults);

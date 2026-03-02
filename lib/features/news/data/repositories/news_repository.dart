@@ -8,13 +8,14 @@ class NewsRepository {
 
   NewsRepository({required this.apiService});
 
-  Future<ArticlesModel> getAllArticles({
+  Future<ArticlesModel> getArticlesBySource({
+    required String source,
     int page = 1,
     int pageSize = 10,
   }) async {
     final response = await apiService.get(
       endpoint: EndPoints.newsEndpoint,
-      queryParameters: {'page': page, 'pageSize': pageSize},
+      queryParameters: {'sources': source, 'page': page, 'pageSize': pageSize},
     );
     // final List<dynamic>? articles = response['articles'];
     // if (articles == null) {
