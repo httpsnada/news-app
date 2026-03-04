@@ -1,5 +1,6 @@
 import 'package:news_app/core/network/api_constants.dart';
 import 'package:news_app/core/network/api_services.dart';
+import 'package:news_app/features/news/data/models/sources/Source_model.dart';
 
 import '../models/articles/Articles_model.dart';
 
@@ -38,6 +39,18 @@ class NewsRepository {
     );
     final articlesModel = ArticlesModel.fromJson(response);
     return articlesModel;
+  }
+
+  Future<SourceModel> getTopHeadlines({
+    required String category,
+  }) async {
+    final response = await apiService.get(
+      endpoint: EndPoints.sourcesEndpoint,
+      queryParameters: {'category': category},
+    );
+
+    final sourceModel = SourceModel.fromJson(response);
+    return sourceModel;
   }
 }
 

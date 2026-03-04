@@ -25,10 +25,10 @@ class _HomePageState extends State<HomePage> {
   void testApi() async {
     try {
       final repo = ServiceLocator.newsRepository;
-      final articles = await repo.getArticlesBySource(source: "bbc-sport");
+      final sources = await repo.getTopHeadlines(category: "general");
       print("here are the status : ");
-      print(articles.articles?.length);
-      print(articles.totalResults);
+      print(sources.sources?.length);
+      print(sources.status);
     } catch (e) {
       print(e.toString());
     }

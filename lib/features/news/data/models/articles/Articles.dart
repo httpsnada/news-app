@@ -1,4 +1,4 @@
-import 'Source.dart';
+import '../sources/Source.dart';
 
 /// source : {"id":null,"name":"Gizmodo.com"}
 /// author : "Kyle Torpey"
