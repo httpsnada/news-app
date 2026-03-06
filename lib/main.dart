@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:news_app/core/theme/app_theme.dart';
 import 'package:news_app/features/news/presentation/pages/home_page.dart';
 
 void main() async {
@@ -21,9 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'News',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: AppTheme.lightTheme,
       home: const HomePage(),
     );
   }
