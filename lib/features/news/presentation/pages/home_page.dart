@@ -1,37 +1,116 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/core/di/service_locator.dart';
+import 'package:news_app/core/constants/app_strings.dart';
+import 'package:news_app/core/utils/spacing.dart';
+import 'package:news_app/features/news/data/models/categories/category_model.dart';
+import 'package:news_app/features/news/presentation/pages/custom_scaffold.dart';
+import 'package:news_app/features/news/presentation/widgets/category_chip.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  List<CategoryModel> categories = CategoryModel.categories;
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    testApi();
-  }
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text("Home Page"),),
+    var theme = Theme.of(context);
+    return CustomScaffold(
+      title: "Home",
+      onHomeClick: () {},
+      body: Padding(
+        padding: EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              AppStrings.homeTitle1,
+              textAlign: TextAlign.start,
+              style: theme.textTheme.titleLarge,
+            ),
+
+            SizedBox(height: 2),
+
+            Text(
+              AppStrings.homeTitle2,
+              textAlign: TextAlign.start,
+              style: theme.textTheme.titleLarge,
+            ),
+
+            SizedBox(height: AppSpacing.md),
+
+            Expanded(
+                child: ListView.separated(
+                    itemBuilder: (context, index) {
+                      var category = categories[index];
+                      return GestureDetector(
+                          onTap: () {
+                            // TODO: navigate to category news page
+                          },
+                          child: CategoryChip(
+                              category: category, index: index));
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(height: AppSpacing.md);
+                    },
+                    itemCount: categories.length))
+
+          ],
+        ),
+      ),
     );
   }
 
-  void testApi() async {
-    try {
-      final repo = ServiceLocator.newsRepository;
-      final sources = await repo.getTopHeadlines(category: "general");
-      print("here are the status : ");
-      print(sources.sources?.length);
-      print(sources.status);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 }
 
+
+// Scaffold(
+// appBar: AppBar(
+// title: Text("Home"),
+// actions: [
+// IconButton(onPressed: () {
+// // TODO: navigate to search
+// }, icon: Icon(Icons.search, size: 24)),
+// ],
+// ),
+//
+// body: Padding(
+// padding: EdgeInsets.all(AppSpacing.md),
+// child: Column(
+// mainAxisAlignment: MainAxisAlignment.start,
+// crossAxisAlignment: CrossAxisAlignment.stretch,
+// children: [
+// Text(
+// AppStrings.homeTitle1,
+// textAlign: TextAlign.start,
+// style: theme.textTheme.titleLarge,
+// ),
+//
+// SizedBox(height: 2),
+//
+// Text(
+// AppStrings.homeTitle2,
+// textAlign: TextAlign.start,
+// style: theme.textTheme.titleLarge,
+// ),
+//
+// SizedBox(height: AppSpacing.md),
+//
+// Expanded(
+// child: ListView.separated(
+// itemBuilder: (context, index){
+// var category = categories[index];
+// return GestureDetector(
+// onTap: (){
+// // TODO: navigate to category news page
+// },
+// child: CategoryChip(category: category, index: index));
+// },
+// separatorBuilder: (context, index){
+// return SizedBox(height: AppSpacing.md);
+// },
+// itemCount: categories.length))
+//
+// ],
+// ),
+// ),
+// );

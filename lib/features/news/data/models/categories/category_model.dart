@@ -1,60 +1,60 @@
 import 'package:news_app/core/constants/app_assets.dart';
 
-class Category {
+class CategoryModel {
   final String id;
   final String name;
   final String imageLight;
   final String imageDark;
 
-  Category({
+  CategoryModel({
     required this.id,
     required this.name,
     required this.imageLight,
     required this.imageDark,
   });
 
-  List<Category> categories = [
-    Category(
+  static List<CategoryModel> categories = [
+    CategoryModel(
       id: "general",
       name: "General",
-      imageLight: AppImages.general,
-      imageDark: AppImages.generalDark,
+      imageLight: AppImages.generalDark,
+      imageDark: AppImages.general,
     ),
-    Category(
+    CategoryModel(
       id: "business",
       name: "Business",
-      imageLight: AppImages.business,
-      imageDark: AppImages.businessDark,
+      imageLight: AppImages.businessDark,
+      imageDark: AppImages.business,
     ),
-    Category(
+    CategoryModel(
       id: "entertainment",
       name: "Entertainment",
-      imageLight: AppImages.entertainment,
-      imageDark: AppImages.entertainmentDark,
+      imageLight: AppImages.entertainmentDark,
+      imageDark: AppImages.entertainment,
     ),
-    Category(
+    CategoryModel(
       id: "health",
       name: "Health",
-      imageLight: AppImages.health,
-      imageDark: AppImages.healthDark,
+      imageLight: AppImages.healthDark,
+      imageDark: AppImages.health,
     ),
-    Category(
+    CategoryModel(
       id: "science",
       name: "Science",
-      imageLight: AppImages.science,
-      imageDark: AppImages.scienceDark,
+      imageLight: AppImages.scienceDark,
+      imageDark: AppImages.science,
     ),
-    Category(
+    CategoryModel(
       id: "technology",
       name: "Technology",
-      imageLight: AppImages.technology,
-      imageDark: AppImages.technologyDark,
+      imageLight: AppImages.technologyDark,
+      imageDark: AppImages.technology,
     ),
-    Category(
+    CategoryModel(
       id: "sports",
       name: "Sports",
-      imageLight: AppImages.sport,
-      imageDark: AppImages.sportDark,
+      imageLight: AppImages.sportDark,
+      imageDark: AppImages.sport,
     ),
   ];
 }

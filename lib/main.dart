@@ -22,8 +22,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'News',
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
       theme: AppTheme.lightTheme,
-      home: const HomePage(),
+      darkTheme: AppTheme.darkTheme,
+      home: HomePage(),
     );
   }
 }
