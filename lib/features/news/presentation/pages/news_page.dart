@@ -42,8 +42,29 @@ class _NewsPageState extends State<NewsPage> {
         }
 
         if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
+          // return Center(child: Text(snapshot.error.toString()));
+
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Failed to load sources"),
+                SizedBox(height: AppSpacing.md),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      sourcesFuture =
+                          ServiceLocator.newsRepository.getTopHeadlines(
+                              category: category!.id);
+                    });
+                  },
+                  child: Text("Retry"),
+                )
+              ],
+            ),
+          );
         }
+
 
         if (!snapshot.hasData) {
           return Center(child: Text("No data"));
