@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/di/service_locator.dart';
+import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/sources/Source_model.dart';
+import 'package:news_app/features/news/presentation/pages/home_page.dart';
 import 'package:news_app/features/news/presentation/widgets/custom_scaffold.dart';
 
 import '../../data/models/categories/category_model.dart';
@@ -52,10 +54,18 @@ class _NewsPageState extends State<NewsPage> {
           length: sources!.length,
           child: CustomScaffold(
             title: category!.name,
-            onHomeClick: () {},
+            onHomeClick: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                HomePage.routeName,
+                (route) => false,
+              );
+            },
 
             bottom: TabBar(
               isScrollable: true,
+              tabAlignment: TabAlignment.start,
+              labelPadding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
               tabs: sources.map((s) => Tab(text: s.name)).toList(),
             ),
 
