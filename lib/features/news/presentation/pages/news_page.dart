@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/di/service_locator.dart';
 import 'package:news_app/core/utils/spacing.dart';
+import 'package:news_app/features/news/data/models/articles/Articles.dart';
 import 'package:news_app/features/news/data/models/sources/Source_model.dart';
-import 'package:news_app/features/news/presentation/pages/home_page.dart';
+import 'package:news_app/features/news/presentation/pages/home_page.dart'
+import 'package:news_app/features/news/presentation/widgets/article_card.dart';
 import 'package:news_app/features/news/presentation/widgets/custom_scaffold.dart';
 
 import '../../data/models/categories/category_model.dart';
@@ -20,6 +22,15 @@ class _NewsPageState extends State<NewsPage> {
   late Future<SourceModel> sourcesFuture;
   CategoryModel? category;
   bool isInit = true;
+
+  Articles article = Articles(
+    author: "Jon Haworth",
+    urlToImage: "https://i.pinimg.com/736x/c2/33/16/c23316afbc663d24d722d8588de2f926.jpg",
+    title: "40-year-old man falls 200 feet to his death while canyoneering at national park",
+    content: "content",
+    description: "description",
+    publishedAt: "15 minutes ago",
+  );
 
   @override
   void didChangeDependencies() {
@@ -90,7 +101,12 @@ class _NewsPageState extends State<NewsPage> {
               tabs: sources.map((s) => Tab(text: s.name)).toList(),
             ),
 
-            body: TabBarView(children: [Text(sources[0].name ?? "No data")]),
+            body: Padding(
+              padding: EdgeInsets.all(AppSpacing.md),
+              child: TabBarView(children: [
+                ArticleCard(article: article)
+              ]),
+            ),
           ),
         );
       },
