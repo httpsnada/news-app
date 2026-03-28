@@ -5,12 +5,14 @@ import 'package:news_app/core/theme/app_colors.dart';
 class CustomScaffold extends StatelessWidget {
   final String title;
   final Widget body;
+  final PreferredSizeWidget? bottom;
   final VoidCallback onHomeClick;
 
   CustomScaffold({
     super.key,
     required this.title,
     required this.body,
+    this.bottom,
     required this.onHomeClick,
   });
 
@@ -20,6 +22,7 @@ class CustomScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        bottom: bottom,
         actions: [
           IconButton(
             onPressed: () {
