@@ -3,7 +3,7 @@ import 'package:news_app/core/di/service_locator.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/articles/Articles.dart';
 import 'package:news_app/features/news/data/models/sources/Source_model.dart';
-import 'package:news_app/features/news/presentation/pages/home_page.dart'
+import 'package:news_app/features/news/presentation/pages/home_page.dart';
 import 'package:news_app/features/news/presentation/widgets/article_card.dart';
 import 'package:news_app/features/news/presentation/widgets/custom_scaffold.dart';
 
@@ -25,8 +25,10 @@ class _NewsPageState extends State<NewsPage> {
 
   Articles article = Articles(
     author: "Jon Haworth",
-    urlToImage: "https://i.pinimg.com/736x/c2/33/16/c23316afbc663d24d722d8588de2f926.jpg",
-    title: "40-year-old man falls 200 feet to his death while canyoneering at national park",
+    urlToImage:
+        "https://i.pinimg.com/736x/c2/33/16/c23316afbc663d24d722d8588de2f926.jpg",
+    title:
+        "40-year-old man falls 200 feet to his death while canyoneering at national park",
     content: "content",
     description: "description",
     publishedAt: "15 minutes ago",
@@ -49,36 +51,58 @@ class _NewsPageState extends State<NewsPage> {
       future: sourcesFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
-
-        if (snapshot.hasError) {
-          // return Center(child: Text(snapshot.error.toString()));
-
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Failed to load sources"),
-                SizedBox(height: AppSpacing.md),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      sourcesFuture =
-                          ServiceLocator.newsRepository.getTopHeadlines(
-                              category: category!.id);
-                    });
-                  },
-                  child: Text("Retry"),
-                )
-              ],
+          return CustomScaffold(
+            title: category!.name,
+            onHomeClick: onHomeClick,
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+              child: Center(child: CircularProgressIndicator()),
             ),
           );
         }
 
+        if (snapshot.hasError) {
+          return CustomScaffold(
+            title: category!.name,
+            onHomeClick: onHomeClick,
+
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Failed to load sources",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    SizedBox(height: AppSpacing.md),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          sourcesFuture = ServiceLocator.newsRepository
+                              .getTopHeadlines(category: category!.id);
+                        });
+                      },
+                      child: Text("Retry"),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
 
         if (!snapshot.hasData) {
-          return Center(child: Text("No data"));
+          return CustomScaffold(
+            title: category!.name,
+            onHomeClick: onHomeClick,
+
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+              child: Center(child: Text("No data")),
+            ),
+          );
         }
 
         final sources = snapshot.data!.sources;
@@ -86,13 +110,7 @@ class _NewsPageState extends State<NewsPage> {
           length: sources!.length,
           child: CustomScaffold(
             title: category!.name,
-            onHomeClick: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                HomePage.routeName,
-                (route) => false,
-              );
-            },
+            onHomeClick: onHomeClick,
 
             bottom: TabBar(
               isScrollable: true,
@@ -103,13 +121,19 @@ class _NewsPageState extends State<NewsPage> {
 
             body: Padding(
               padding: EdgeInsets.all(AppSpacing.md),
-              child: TabBarView(children: [
-                ArticleCard(article: article)
-              ]),
+              child: TabBarView(children: [ArticleCard(article: article)]),
             ),
           ),
         );
       },
+    );
+  }
+
+  void onHomeClick() {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      HomePage.routeName,
+      (route) => false,
     );
   }
 }
