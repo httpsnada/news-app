@@ -14,8 +14,14 @@ class ArticleList extends StatefulWidget {
   State<ArticleList> createState() => _ArticleListState();
 }
 
-class _ArticleListState extends State<ArticleList> {
+class _ArticleListState extends State<ArticleList>
+    with AutomaticKeepAliveClientMixin {
   late Future<ArticlesModel> articleFuture;
+
+  @override
+  bool get wantKeepAlive => true;
+
+  // not to reload and recall the api for each tab, and saving them in memory instead
 
   @override
   void initState() {
@@ -26,6 +32,7 @@ class _ArticleListState extends State<ArticleList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
       future: articleFuture,
       builder: (context, snapshot) {
@@ -38,10 +45,14 @@ class _ArticleListState extends State<ArticleList> {
         }
 
         if (!snapshot.hasData) {
-          return Center(child: Text("No articles found"));
+          return Center(child: Text("No articles available"));
         }
 
         final articles = snapshot.data!.articles;
+        if (articles!.isEmpty) {
+          return Center(child: Text("No articles available"));
+        }
+
         return ListView.builder(
           itemCount: articles!.length,
           itemBuilder: (context, index) {

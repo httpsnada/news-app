@@ -53,15 +53,18 @@ class ArticleCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "By : ${article.author}",
-                style: theme.textTheme.bodySmall,
-                overflow: TextOverflow.ellipsis,
+              Flexible(
+                child: Text(
+                  "By : ${article.author}",
+                  style: theme.textTheme.bodySmall,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
 
               SizedBox(width: AppSpacing.sm),
 
-              Text("${article.publishedAt}", style: theme.textTheme.bodySmall),
+              Flexible(child: Text(
+                  "${article.publishedAt}", style: theme.textTheme.bodySmall)),
             ],
           ),
         ],
