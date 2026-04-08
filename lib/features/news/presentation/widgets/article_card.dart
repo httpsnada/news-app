@@ -14,6 +14,7 @@ class ArticleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Container(
+      margin: EdgeInsets.only(bottom: AppSpacing.md),
       padding: EdgeInsets.all(AppSpacing.sm),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSpacing.md),
@@ -52,7 +53,11 @@ class ArticleCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("By : ${article.author}", style: theme.textTheme.bodySmall),
+              Text(
+                "By : ${article.author}",
+                style: theme.textTheme.bodySmall,
+                overflow: TextOverflow.ellipsis,
+              ),
 
               SizedBox(width: AppSpacing.sm),
 
