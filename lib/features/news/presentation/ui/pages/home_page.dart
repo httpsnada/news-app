@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/constants/app_strings.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/categories/category_model.dart';
-import 'package:news_app/features/news/presentation/pages/news_page.dart';
-import 'package:news_app/features/news/presentation/widgets/category_chip.dart';
-import 'package:news_app/features/news/presentation/widgets/custom_scaffold.dart';
+import 'package:news_app/features/news/presentation/ui/pages/news_page.dart';
+import 'package:news_app/features/news/presentation/ui/widgets/category_chip.dart';
+import 'package:news_app/features/news/presentation/ui/widgets/custom_scaffold.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = 'home';

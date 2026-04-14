@@ -3,7 +3,7 @@ import 'package:news_app/core/theme/app_colors.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 
-import '../../data/models/categories/category_model.dart';
+import '../../../data/models/categories/category_model.dart';
 
 class CategoryChip extends StatelessWidget {
   CategoryModel category;

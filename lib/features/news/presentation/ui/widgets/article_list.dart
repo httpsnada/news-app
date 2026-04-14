@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/news/data/models/articles/Articles_model.dart';
 import 'package:news_app/features/news/data/models/sources/Source.dart';
-import 'package:news_app/features/news/presentation/widgets/article_card.dart';
+import 'package:news_app/features/news/presentation/ui/widgets/article_card.dart';
 
-import '../../../../core/di/service_locator.dart';
+import '../../../../../core/di/service_locator.dart';
 
 class ArticleList extends StatefulWidget {
   final Source source;

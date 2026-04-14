@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/core/theme/app_theme.dart';
-import 'package:news_app/features/news/presentation/pages/home_page.dart';
-import 'package:news_app/features/news/presentation/pages/news_page.dart';
+
+import 'features/news/presentation/ui/pages/home_page.dart';
+import 'features/news/presentation/ui/pages/news_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

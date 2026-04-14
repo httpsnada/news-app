@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/di/service_locator.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/sources/Source_model.dart';
-import 'package:news_app/features/news/presentation/pages/home_page.dart';
-import 'package:news_app/features/news/presentation/widgets/article_list.dart';
-import 'package:news_app/features/news/presentation/widgets/custom_scaffold.dart';
+import 'package:news_app/features/news/presentation/ui/pages/home_page.dart';
+import 'package:news_app/features/news/presentation/ui/widgets/article_list.dart';
+import 'package:news_app/features/news/presentation/ui/widgets/custom_scaffold.dart';
 
-import '../../data/models/categories/category_model.dart';
+import '../../../data/models/categories/category_model.dart';
 
 class NewsPage extends StatefulWidget {
   static const String routeName = 'news';
