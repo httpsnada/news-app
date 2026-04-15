@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/di/service_locator.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/sources/Source_model.dart';
+import 'package:news_app/features/news/presentation/state/news_provider.dart';
 import 'package:news_app/features/news/presentation/ui/pages/home_page.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/article_list.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/custom_scaffold.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/models/categories/category_model.dart';
 
@@ -46,89 +48,92 @@ class _NewsPageState extends State<NewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SourceModel>(
-      future: sourcesFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CustomScaffold(
-            title: category!.name,
-            onHomeClick: onHomeClick,
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              child: Center(child: CircularProgressIndicator()),
-            ),
-          );
-        }
+    return ChangeNotifierProvider(
+      create: (_) => NewsProvider(),
+      child: FutureBuilder<SourceModel>(
+        future: sourcesFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CustomScaffold(
+              title: category!.name,
+              onHomeClick: onHomeClick,
+              body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                child: Center(child: CircularProgressIndicator()),
+              ),
+            );
+          }
 
-        if (snapshot.hasError) {
-          return CustomScaffold(
-            title: category!.name,
-            onHomeClick: onHomeClick,
+          if (snapshot.hasError) {
+            return CustomScaffold(
+              title: category!.name,
+              onHomeClick: onHomeClick,
 
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Failed to load sources",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    SizedBox(height: AppSpacing.md),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          sourcesFuture = ServiceLocator.newsRepository
-                              .getTopHeadlines(category: category!.id);
-                        });
-                      },
-                      child: Text("Retry"),
-                    ),
-                  ],
+              body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Failed to load sources",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      SizedBox(height: AppSpacing.md),
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            sourcesFuture = ServiceLocator.newsRepository
+                                .getTopHeadlines(category: category!.id);
+                          });
+                        },
+                        child: Text("Retry"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+
+          if (!snapshot.hasData) {
+            return CustomScaffold(
+              title: category!.name,
+              onHomeClick: onHomeClick,
+
+              body: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                child: Center(child: Text("No data")),
+              ),
+            );
+          }
+
+          final sources = snapshot.data!.sources;
+          return DefaultTabController(
+            length: sources!.length,
+            child: CustomScaffold(
+              title: category!.name,
+              onHomeClick: onHomeClick,
+
+              bottom: TabBar(
+                isScrollable: true,
+                tabAlignment: TabAlignment.start,
+                labelPadding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                tabs: sources.map((s) => Tab(text: s.name)).toList(),
+              ),
+
+              body: Padding(
+                padding: EdgeInsets.all(AppSpacing.md),
+                child: TabBarView(
+                  children: sources.map((source) {
+                    return ArticleList(source: source);
+                  }).toList(),
                 ),
               ),
             ),
           );
-        }
-
-        if (!snapshot.hasData) {
-          return CustomScaffold(
-            title: category!.name,
-            onHomeClick: onHomeClick,
-
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              child: Center(child: Text("No data")),
-            ),
-          );
-        }
-
-        final sources = snapshot.data!.sources;
-        return DefaultTabController(
-          length: sources!.length,
-          child: CustomScaffold(
-            title: category!.name,
-            onHomeClick: onHomeClick,
-
-            bottom: TabBar(
-              isScrollable: true,
-              tabAlignment: TabAlignment.start,
-              labelPadding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              tabs: sources.map((s) => Tab(text: s.name)).toList(),
-            ),
-
-            body: Padding(
-              padding: EdgeInsets.all(AppSpacing.md),
-              child: TabBarView(
-                children: sources.map((source) {
-                  return ArticleList(source: source);
-                }).toList(),
-              ),
-            ),
-          ),
-        );
-      },
+        },
+      ),
     );
   }
 

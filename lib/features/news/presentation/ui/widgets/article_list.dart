@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/news/data/models/articles/Articles_model.dart';
 import 'package:news_app/features/news/data/models/sources/Source.dart';
+import 'package:news_app/features/news/presentation/state/news_provider.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/article_card.dart';
-
-import '../../../../../core/di/service_locator.dart';
+import 'package:provider/provider.dart';
 
 class ArticleList extends StatefulWidget {
   final Source source;
@@ -26,35 +26,35 @@ class _ArticleListState extends State<ArticleList>
   @override
   void initState() {
     super.initState();
-    final repo = ServiceLocator.newsRepository;
-    articleFuture = repo.getArticlesBySource(source: widget.source.id ?? "");
+    // final repo = ServiceLocator.newsRepository;
+    // articleFuture = repo.getArticlesBySource(source: widget.source.id ?? "");
+    Future.microtask(() {
+      context.read<NewsProvider>().fetchArticles(widget.source.id ?? "");
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return FutureBuilder(
-      future: articleFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+    return Consumer<NewsProvider>(
+      builder: (context, provider, _) {
+        if (provider.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (snapshot.hasError) {
+        if (provider.error != null) {
           return const Center(child: Text("Failed to load articles"));
         }
 
-        if (!snapshot.hasData) {
-          return Center(child: Text("No articles available"));
-        }
+        final results = provider.articleModel;
+        final articles = results!.articles ?? [];
 
-        final articles = snapshot.data!.articles;
-        if (articles!.isEmpty) {
+        if (articles.isEmpty) {
           return Center(child: Text("No articles available"));
         }
 
         return ListView.builder(
-          itemCount: articles!.length,
+          itemCount: articles.length,
           itemBuilder: (context, index) {
             final article = articles[index];
             return ArticleCard(article: article);
