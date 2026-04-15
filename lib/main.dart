@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/core/theme/app_theme.dart';
+import 'package:provider/provider.dart';
 
+import 'features/news/presentation/state/news_provider.dart';
+import 'features/news/presentation/state/sources_provider.dart';
 import 'features/news/presentation/ui/pages/home_page.dart';
 import 'features/news/presentation/ui/pages/news_page.dart';
 
@@ -12,7 +15,13 @@ void main() async {
   } catch (e) {
     print("ENV ERROR: $e");
   }
-  runApp(const MyApp());
+  runApp(
+      MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => SourcesProvider()),
+            ChangeNotifierProvider(create: (context) => NewsProvider()),
+          ],
+          child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
