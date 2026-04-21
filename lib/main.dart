@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:news_app/core/state/theme_provider.dart';
 import 'package:news_app/core/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ void main() async {
   runApp(
       MultiProvider(
           providers: [
+            ChangeNotifierProvider(create: (context) => ThemeProvider()),
             ChangeNotifierProvider(create: (context) => SourcesProvider()),
             ChangeNotifierProvider(create: (context) => NewsProvider()),
           ],
@@ -30,10 +32,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
     return MaterialApp(
       title: 'News',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
+      themeMode: themeProvider.themeMode,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       routes: {

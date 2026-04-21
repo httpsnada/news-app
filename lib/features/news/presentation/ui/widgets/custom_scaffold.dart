@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/constants/app_strings.dart';
 import 'package:news_app/core/theme/app_colors.dart';
+import 'package:news_app/core/utils/spacing.dart';
+import 'package:news_app/features/news/presentation/ui/widgets/theme_drop_down.dart';
 
 class CustomScaffold extends StatelessWidget {
   final String title;
@@ -67,15 +69,20 @@ class CustomScaffold extends StatelessWidget {
 
             Divider(),
 
-            ListTile(
-              iconColor: AppColors.light,
-              textColor: AppColors.light,
-              leading: Icon(Icons.sunny),
-              title: Text("Mode"),
-              // TODO: change theme
-            ),
+            SizedBox(height: AppSpacing.md,),
 
-            Divider(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Theme", style: TextStyle(color: AppColors.light),),
+                  SizedBox(height: AppSpacing.md,),
+                  ThemeDropDown(),
+
+                ],
+              ),
+            ),
           ],
         ),
       ),
