@@ -4,6 +4,7 @@ import 'package:news_app/core/state/theme_provider.dart';
 import 'package:news_app/core/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
+import 'core/storage/cache_helper.dart';
 import 'features/news/presentation/state/news_provider.dart';
 import 'features/news/presentation/state/sources_provider.dart';
 import 'features/news/presentation/ui/pages/home_page.dart';
@@ -11,6 +12,11 @@ import 'features/news/presentation/ui/pages/news_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
+
+  final themeProvider = ThemeProvider();
+  await themeProvider.loadTheme();
+
   try {
     await dotenv.load(fileName: ".env");
   } catch (e) {
@@ -19,7 +25,7 @@ void main() async {
   runApp(
       MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (context) => ThemeProvider()),
+            ChangeNotifierProvider.value(value: themeProvider),
             ChangeNotifierProvider(create: (context) => SourcesProvider()),
             ChangeNotifierProvider(create: (context) => NewsProvider()),
           ],
