@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                   var category = categories[index];
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(
+                      Navigator.pushNamed(
                         context,
                         NewsPage.routeName,
                         arguments: category,
