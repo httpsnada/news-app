@@ -113,7 +113,9 @@ class _NewsPageState extends State<NewsPage> {
       padding: EdgeInsets.all(AppSpacing.md),
       child: TabBarView(
         children: sources.map((source) {
-          return ArticleList(source: source);
+          return ArticleList(
+              key: ValueKey(source.id),
+              source: source);
         }).toList(),
       ),
     );

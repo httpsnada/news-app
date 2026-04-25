@@ -64,7 +64,8 @@ class ArticleCard extends StatelessWidget {
               SizedBox(width: AppSpacing.sm),
 
               Flexible(child: Text(
-                  "${article.publishedAt}", style: theme.textTheme.bodySmall)),
+                  "${article.publishedAt}".formatNewsDate(),
+                  style: theme.textTheme.bodySmall)),
             ],
           ),
         ],
