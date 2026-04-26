@@ -85,13 +85,9 @@ class _NewsPageState extends State<NewsPage> {
               ),
               SizedBox(height: AppSpacing.md),
               ElevatedButton(
-                onPressed: () {
-                  context.read<SourcesProvider>().fetchTopHeadlines(
+                onPressed: () async {
+                  await context.read<SourcesProvider>().fetchTopHeadlines(
                       category!.id);
-                  // setState(() {
-                    // sourcesFuture = ServiceLocator.newsRepository
-                    //     .getTopHeadlines(category: category!.id);
-                  // });
                 },
                 child: Text("Retry"),
               ),

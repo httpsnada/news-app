@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/features/news/data/models/articles/Articles_model.dart';
 import 'package:news_app/features/news/data/models/sources/Source.dart';
 import 'package:news_app/features/news/presentation/state/news_provider.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/article_card.dart';
@@ -16,7 +15,6 @@ class ArticleList extends StatefulWidget {
 
 class _ArticleListState extends State<ArticleList>
     with AutomaticKeepAliveClientMixin {
-  late Future<ArticlesModel> articleFuture;
 
   @override
   bool get wantKeepAlive => true;
@@ -53,12 +51,19 @@ class _ArticleListState extends State<ArticleList>
           return Center(child: Text("No articles available"));
         }
 
-        return ListView.builder(
-          itemCount: articles.length,
-          itemBuilder: (context, index) {
-            final article = articles[index];
-            return ArticleCard(article: article);
+        return RefreshIndicator(
+          onRefresh: () async {
+            await context.read<NewsProvider>().fetchArticles(widget.source.id ??
+                "");
           },
+          child: ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: articles.length,
+            itemBuilder: (context, index) {
+              final article = articles[index];
+              return ArticleCard(article: article);
+            },
+          ),
         );
       },
     );
