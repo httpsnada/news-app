@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/constants/app_strings.dart';
+import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/categories/category_model.dart';
 import 'package:news_app/features/news/presentation/ui/pages/news_page.dart';
@@ -14,7 +15,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     return CustomScaffold(
       title: "Home",
       onHomeClick: () {},
@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
             Text(
               AppStrings.homeTitle1,
               textAlign: TextAlign.start,
-              style: theme.textTheme.titleLarge,
+              style: context.text.titleLarge,
             ),
 
             SizedBox(height: 2),
@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
             Text(
               AppStrings.homeTitle2,
               textAlign: TextAlign.start,
-              style: theme.textTheme.titleLarge,
+              style: context.text.titleLarge,
             ),
 
             SizedBox(height: AppSpacing.md),

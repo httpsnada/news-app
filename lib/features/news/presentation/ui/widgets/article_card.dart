@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/core/theme/app_colors.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/articles/Articles.dart';
@@ -12,14 +11,14 @@ class ArticleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.only(bottom: AppSpacing.md),
       padding: EdgeInsets.all(AppSpacing.sm),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSpacing.md),
         border: Border.all(
-          color: context.isDarkMode ? AppColors.light : AppColors.dark,
+          color: context.colors.onPrimary,
+          //  color: context.isDarkMode ? AppColors.light : AppColors.dark,
           width: 1,
         ),
       ),
@@ -42,7 +41,7 @@ class ArticleCard extends StatelessWidget {
 
           Text(
             article.title ?? "",
-            style: theme.textTheme.titleLarge,
+            style: context.text.titleLarge,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             textAlign: TextAlign.start,
@@ -56,7 +55,7 @@ class ArticleCard extends StatelessWidget {
               Flexible(
                 child: Text(
                   "By : ${article.author}",
-                  style: theme.textTheme.bodySmall,
+                  style: context.text.bodySmall,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -65,7 +64,7 @@ class ArticleCard extends StatelessWidget {
 
               Flexible(child: Text(
                   "${article.publishedAt}".formatNewsDate(),
-                  style: theme.textTheme.bodySmall)),
+                  style: context.text.bodySmall)),
             ],
           ),
         ],

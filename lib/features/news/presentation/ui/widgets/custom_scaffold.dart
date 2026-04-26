@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/constants/app_strings.dart';
 import 'package:news_app/core/theme/app_colors.dart';
+import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/theme_drop_down.dart';
 
@@ -20,7 +21,6 @@ class CustomScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -47,7 +47,7 @@ class CustomScaffold extends StatelessWidget {
                 child: Center(
                   child: Text(
                     AppStrings.newsApp,
-                    style: theme.textTheme.titleLarge?.copyWith(
+                    style: context.text.titleLarge?.copyWith(
                       color: AppColors.dark,
                       fontWeight: FontWeight.bold,
                     ),

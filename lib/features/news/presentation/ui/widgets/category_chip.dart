@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/core/theme/app_colors.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 
@@ -15,7 +14,6 @@ class CategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     bool isDarkMode = context.isDarkMode;
 
     return ClipRRect(
@@ -44,8 +42,8 @@ class CategoryChip extends StatelessWidget {
                   children: [
                     Text(
                       category.name,
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        color: isDarkMode ? AppColors.dark : AppColors.light,
+                      style: context.text.titleLarge?.copyWith(
+                        color: context.colors.primary,
                         fontSize: 32,
                       ),
                     ),
@@ -54,28 +52,22 @@ class CategoryChip extends StatelessWidget {
                       padding: EdgeInsets.all(AppSpacing.md),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: isDarkMode
-                            ? AppColors.dark.withValues(alpha: 0.5)
-                            : AppColors.light.withValues(alpha: 0.5),
+                        color: context.colors.primary.withValues(alpha: 0.5),
                       ),
                       child: isIndexEven
                           ? Row(
                               children: [
                                 Text(
                                   "View All",
-                                  style: theme.textTheme.titleLarge,
+                                  style: context.text.titleLarge,
                                 ),
 
                                 Spacer(),
 
                                 CircleAvatar(
                                   radius: 24,
-                                  backgroundColor: isDarkMode
-                                      ? AppColors.dark
-                                      : AppColors.light,
-                                  foregroundColor: isDarkMode
-                                      ? AppColors.light
-                                      : AppColors.dark,
+                                  backgroundColor: context.colors.primary,
+                                  foregroundColor: context.colors.onPrimary,
                                   child: Icon(Icons.arrow_forward_ios),
                                 ),
                               ],
@@ -84,12 +76,8 @@ class CategoryChip extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   radius: 24,
-                                  backgroundColor: isDarkMode
-                                      ? AppColors.dark
-                                      : AppColors.light,
-                                  foregroundColor: isDarkMode
-                                      ? AppColors.light
-                                      : AppColors.dark,
+                                  backgroundColor: context.colors.primary,
+                                  foregroundColor: context.colors.onPrimary,
                                   child: Icon(Icons.arrow_back_ios),
                                 ),
 
@@ -97,7 +85,7 @@ class CategoryChip extends StatelessWidget {
 
                                 Text(
                                   "View All",
-                                  style: theme.textTheme.titleLarge,
+                                  style: context.text.titleLarge,
                                 ),
                               ],
                             ),

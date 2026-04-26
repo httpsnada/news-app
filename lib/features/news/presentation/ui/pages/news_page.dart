@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/presentation/state/sources_provider.dart';
 import 'package:news_app/features/news/presentation/ui/pages/home_page.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/article_list.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/custom_scaffold.dart';
 import 'package:provider/provider.dart';
-
 import '../../../data/models/categories/category_model.dart';
 
 class NewsPage extends StatefulWidget {
@@ -47,6 +47,10 @@ class _NewsPageState extends State<NewsPage> {
             ? null
             : TabBar(
                 isScrollable: true,
+                dividerColor: context.colors.onPrimary,
+                indicatorColor: context.colors.onPrimary,
+                labelColor: context.colors.onPrimary,
+                unselectedLabelColor: context.colors.secondary,
                 tabAlignment: TabAlignment.start,
                 labelPadding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                 tabs: sources.map((s) => Tab(text: s.name)).toList(),
@@ -80,9 +84,7 @@ class _NewsPageState extends State<NewsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Failed to load sources",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+                "Failed to load sources", style: context.text.bodyMedium)),
               SizedBox(height: AppSpacing.md),
               ElevatedButton(
                 onPressed: () async {
