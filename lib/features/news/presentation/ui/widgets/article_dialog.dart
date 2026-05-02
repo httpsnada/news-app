@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/extensions.dart';
+import 'package:news_app/core/utils/helpers.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/articles/Articles.dart';
 
@@ -73,8 +74,7 @@ class ArticleDialog extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // TODO
-                    // Launch URL
+                    HelperFunctions().openArticle(article.url ?? "");
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: context.colors.onPrimary,
