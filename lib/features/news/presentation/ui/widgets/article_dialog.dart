@@ -12,79 +12,68 @@ class ArticleDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TweenAnimationBuilder(
-      tween: Tween(begin: 0.8, end: 1.0),
-      duration: const Duration(milliseconds: 250),
-      builder: (context, value, child) {
-        return Transform.scale(scale: value, child: child);
-      },
-      child: Dialog(
-        insetPadding: EdgeInsets.all(AppSpacing.md),
-        shape: RoundedRectangleBorder(
+    return SafeArea(
+      child: Container(
+        //  margin: EdgeInsets.only(bottom: AppSpacing.md),
+        padding: EdgeInsets.all(AppSpacing.sm),
+        decoration: BoxDecoration(
+          color: context.colors.onPrimary,
           borderRadius: BorderRadius.circular(AppSpacing.md),
+          border: Border.all(color: context.colors.onPrimary, width: 1),
         ),
-        child: Container(
-          margin: EdgeInsets.only(bottom: AppSpacing.md),
-          padding: EdgeInsets.all(AppSpacing.sm),
-          decoration: BoxDecoration(
-            color: context.colors.onPrimary,
-            borderRadius: BorderRadius.circular(AppSpacing.md),
-            border: Border.all(color: context.colors.onPrimary, width: 1),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(AppSpacing.sm),
-                child: CachedNetworkImage(
-                  imageUrl: article.urlToImage ?? "",
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                  height: 220,
-                  fit: BoxFit.cover,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(AppSpacing.sm),
+              child: CachedNetworkImage(
+                imageUrl: article.urlToImage ?? "",
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                height: 220,
+                fit: BoxFit.cover,
+              ),
+            ),
+
+            const SizedBox(height: AppSpacing.sm),
+
+            Text(
+              article.title ?? "",
+              style: context.text.titleLarge?.copyWith(
+                color: context.colors.primary,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              textAlign: TextAlign.start,
+            ),
+
+            SizedBox(height: AppSpacing.sm),
+
+            Text(
+              "${article.content}" ?? "No description available.",
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: context.text.bodySmall,
+            ),
+
+            const SizedBox(height: AppSpacing.sm),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  HelperFunctions().openArticle(article.url ?? "");
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: context.colors.onPrimary,
+                  backgroundColor: context.colors.primary,
                 ),
+                child: Text("Read Full Article"),
               ),
-
-              const SizedBox(height: AppSpacing.sm),
-
-              Text(
-                article.title ?? "",
-                style: context.text.titleLarge?.copyWith(
-                  color: context.colors.primary,
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                textAlign: TextAlign.start,
-              ),
-
-              SizedBox(height: AppSpacing.sm),
-
-              Text(
-                "${article.description}" ?? "No description available.",
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: context.text.bodyMedium,
-              ),
-
-              const SizedBox(height: AppSpacing.sm),
-
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    HelperFunctions().openArticle(article.url ?? "");
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: context.colors.onPrimary,
-                    backgroundColor: context.colors.primary,
-                  ),
-                  child: Text("Read Full Article"),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

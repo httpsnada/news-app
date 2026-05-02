@@ -13,10 +13,7 @@ class ArticleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        showDialog(context: context,
-            builder: (_) => ArticleDialog(article: article));
-      },
+      onTap: () => showArticlePreview(context, article),
       child: Container(
         margin: EdgeInsets.only(bottom: AppSpacing.md),
         padding: EdgeInsets.all(AppSpacing.sm),
@@ -75,6 +72,19 @@ class ArticleCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void showArticlePreview(BuildContext context, Articles article) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) =>
+          Padding(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            child: ArticleDialog(article: article),
+          ),
     );
   }
 }
