@@ -6,6 +6,7 @@ import 'package:news_app/features/news/presentation/ui/pages/home_page.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/article_list.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/custom_scaffold.dart';
 import 'package:provider/provider.dart';
+
 import '../../../data/models/categories/category_model.dart';
 
 class NewsPage extends StatefulWidget {
@@ -83,13 +84,13 @@ class _NewsPageState extends State<NewsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Failed to load sources", style: context.text.bodyMedium)),
+              Text("Failed to load sources", style: context.text.bodyMedium),
               SizedBox(height: AppSpacing.md),
               ElevatedButton(
                 onPressed: () async {
                   await context.read<SourcesProvider>().fetchTopHeadlines(
-                      category!.id);
+                    category!.id,
+                  );
                 },
                 child: Text("Retry"),
               ),
@@ -111,9 +112,7 @@ class _NewsPageState extends State<NewsPage> {
       padding: EdgeInsets.all(AppSpacing.md),
       child: TabBarView(
         children: sources.map((source) {
-          return ArticleList(
-              key: ValueKey(source.id),
-              source: source);
+          return ArticleList(key: ValueKey(source.id), source: source);
         }).toList(),
       ),
     );

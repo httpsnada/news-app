@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/articles/Articles.dart';
+import 'package:news_app/features/news/presentation/ui/widgets/article_dialog.dart';
 
 class ArticleCard extends StatelessWidget {
   final Articles article;
@@ -11,63 +12,68 @@ class ArticleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: AppSpacing.md),
-      padding: EdgeInsets.all(AppSpacing.sm),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppSpacing.md),
-        border: Border.all(
-          color: context.colors.onPrimary,
-          //  color: context.isDarkMode ? AppColors.light : AppColors.dark,
-          width: 1,
+    return InkWell(
+      onTap: () {
+        showDialog(context: context,
+            builder: (_) => ArticleDialog(article: article));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: AppSpacing.md),
+        padding: EdgeInsets.all(AppSpacing.sm),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppSpacing.md),
+          border: Border.all(
+            color: context.colors.onPrimary,
+            width: 1,
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(AppSpacing.sm),
-            child: CachedNetworkImage(
-              imageUrl: article.urlToImage ?? "",
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              height: 220,
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          SizedBox(height: AppSpacing.sm),
-
-          Text(
-            article.title ?? "",
-            style: context.text.titleLarge,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            textAlign: TextAlign.start,
-          ),
-
-          SizedBox(height: AppSpacing.sm),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Text(
-                  "By : ${article.author}",
-                  style: context.text.bodySmall,
-                  overflow: TextOverflow.ellipsis,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(AppSpacing.sm),
+              child: CachedNetworkImage(
+                imageUrl: article.urlToImage ?? "",
+                placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                height: 220,
+                fit: BoxFit.cover,
               ),
+            ),
 
-              SizedBox(width: AppSpacing.sm),
+            SizedBox(height: AppSpacing.sm),
 
-              Flexible(child: Text(
-                  "${article.publishedAt}".formatNewsDate(),
-                  style: context.text.bodySmall)),
-            ],
-          ),
-        ],
+            Text(
+              article.title ?? "",
+              style: context.text.titleLarge,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              textAlign: TextAlign.start,
+            ),
+
+            SizedBox(height: AppSpacing.sm),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Text(
+                    "By : ${article.author}",
+                    style: context.text.bodySmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+
+                SizedBox(width: AppSpacing.sm),
+
+                Flexible(child: Text(
+                    "${article.publishedAt}".formatNewsDate(),
+                    style: context.text.bodySmall)),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
