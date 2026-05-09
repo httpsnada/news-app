@@ -1,0 +1,36 @@
+{
+  "@@locale": "ar",
+  "@_home": {
+    "section": "-----------------------------------"
+  },
+  "home": "الرئيسية",
+  "homeTitle1": "صباح الخير",
+  "homeTitle2": "إليك بعض الأخبار",
+  "viewAll": "عرض الكل",
+  "@_categories": {
+    "section": "-----------------------------------"
+  },
+  "general": "عام",
+  "business": "الأعمال",
+  "entertainment": "الترفيه",
+  "health": "الصحة",
+  "science": "العلوم",
+  "technology": "التكنولوجيا",
+  "sports": "الرياضة",
+  "@_drawer": {
+    "section": "-----------------------------------"
+  },
+  "newsApp": "تطبيق الأخبار",
+  "back": "العودة للرئيسية",
+  "themeKey": "المظهر",
+  "lightMode": "فاتح",
+  "darkMode": "داكن",
+  "languageKey": "اللغة",
+  "english": "English",
+  "arabic": "العربية",
+  "@_news": {
+    "section": "-----------------------------------"
+  },
+  "search": "بحث",
+  "readFullArticle": "قراءة المقال كاملاً"
+}

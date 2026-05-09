@@ -1,0 +1,36 @@
+{
+  "@@locale": "en",
+  "@_home": {
+    "section": "-----------------------------------"
+  },
+  "home": "Home",
+  "homeTitle1": "Good Morning",
+  "homeTitle2": "Here is Some News For You",
+  "viewAll": "View All",
+  "@_categories": {
+    "section": "-----------------------------------"
+  },
+  "general": "General",
+  "business": "Business",
+  "entertainment": "Entertainment",
+  "health": "Health",
+  "science": "Science",
+  "technology": "Technology",
+  "sports": "Sports",
+  "@_drawer": {
+    "section": "-----------------------------------"
+  },
+  "newsApp": "News App",
+  "back": "Go To Home",
+  "themeKey": "Theme",
+  "lightMode": "Light",
+  "darkMode": "Dark",
+  "languageKey": "Language",
+  "english": "English",
+  "arabic": "العربية",
+  "@_news": {
+    "section": "-----------------------------------"
+  },
+  "search": "Search",
+  "readFullArticle": "Read Full Article"
+}
