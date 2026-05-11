@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/features/news/data/models/sources/Source.dart';
 import 'package:news_app/features/news/presentation/state/news_provider.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/article_card.dart';
@@ -41,14 +42,14 @@ class _ArticleListState extends State<ArticleList>
         }
 
         if (provider.error != null) {
-          return const Center(child: Text("Failed to load articles"));
+          return Center(child: Text(context.l10n.articleListError));
         }
 
         final results = provider.articleModel;
         final articles = results!.articles ?? [];
 
         if (articles.isEmpty) {
-          return Center(child: Text("No articles available"));
+          return Center(child: Text(context.l10n.articleListEmpty));
         }
 
         return RefreshIndicator(

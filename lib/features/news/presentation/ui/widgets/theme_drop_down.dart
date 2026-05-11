@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/state/theme_provider.dart';
 import 'package:news_app/core/theme/app_colors.dart';
+import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,8 @@ class ThemeDropDown extends StatelessWidget {
                 children: [
                   Icon(Icons.sunny, size: 20, color: AppColors.light),
                   SizedBox(width: AppSpacing.sm),
-                  Text("Light", style: TextStyle(color: AppColors.light)),
+                  Text(context.l10n.lightMode,
+                      style: TextStyle(color: AppColors.light)),
                 ],
               ),
             ),
@@ -46,7 +48,8 @@ class ThemeDropDown extends StatelessWidget {
                 children: [
                   Icon(Icons.dark_mode, size: 20, color: AppColors.light),
                   SizedBox(width: AppSpacing.sm),
-                  Text("Dark", style: TextStyle(color: AppColors.light)),
+                  Text(context.l10n.darkMode,
+                      style: TextStyle(color: AppColors.light)),
                 ],
               ),
             ),

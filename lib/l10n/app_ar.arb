@@ -32,5 +32,12 @@
     "section": "-----------------------------------"
   },
   "search": "بحث",
-  "readFullArticle": "قراءة المقال كاملاً"
+  "readFullArticle": "قراءة المقال كاملاً",
+  "articleListError": "فشل تحميل المقالات",
+  "articleListEmpty": "لا توجد مقالات متاحة",
+  "noDescription": "لا يوجد وصف متاح.",
+  "publishedBy": "بواسطة",
+  "sourcesError": "فشل تحميل المصادر",
+  "sourcesEmpty": "لا توجد بيانات",
+  "retry": "إعادة المحاولة"
 }

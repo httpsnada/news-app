@@ -71,4 +71,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get readFullArticle => 'قراءة المقال كاملاً';
+
+  @override
+  String get articleListError => 'فشل تحميل المقالات';
+
+  @override
+  String get articleListEmpty => 'لا توجد مقالات متاحة';
+
+  @override
+  String get noDescription => 'لا يوجد وصف متاح.';
+
+  @override
+  String get publishedBy => 'بواسطة';
+
+  @override
+  String get sourcesError => 'فشل تحميل المصادر';
+
+  @override
+  String get sourcesEmpty => 'لا توجد بيانات';
+
+  @override
+  String get retry => 'إعادة المحاولة';
 }

@@ -41,7 +41,8 @@ class CategoryChip extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      category.name,
+                      //  category.name,
+                      category.localizedName(context),
                       style: context.text.titleLarge?.copyWith(
                         color: context.colors.primary,
                         fontSize: 32,
@@ -58,7 +59,7 @@ class CategoryChip extends StatelessWidget {
                           ? Row(
                               children: [
                                 Text(
-                                  "View All",
+                                  context.l10n.viewAll,
                                   style: context.text.titleLarge,
                                 ),
 
@@ -84,7 +85,7 @@ class CategoryChip extends StatelessWidget {
                                 SizedBox(width: AppSpacing.md),
 
                                 Text(
-                                  "View All",
+                                  context.l10n.viewAll,
                                   style: context.text.titleLarge,
                                 ),
                               ],

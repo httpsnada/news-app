@@ -32,5 +32,12 @@
     "section": "-----------------------------------"
   },
   "search": "Search",
-  "readFullArticle": "Read Full Article"
+  "readFullArticle": "Read Full Article",
+  "articleListError": "Failed to load articles",
+  "articleListEmpty": "No articles available",
+  "noDescription": "No description available.",
+  "publishedBy": "By",
+  "sourcesError": "Failed to load sources",
+  "sourcesEmpty": "No data",
+  "retry": "Retry"
 }

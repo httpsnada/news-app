@@ -63,7 +63,7 @@ import 'app_localizations_en.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,8 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<
+      AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -84,18 +84,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <
+      LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
-    Locale('en'),
+    Locale('en')
   ];
 
   /// No description provided for @home.
@@ -223,6 +223,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Read Full Article'**
   String get readFullArticle;
+
+  /// No description provided for @articleListError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load articles'**
+  String get articleListError;
+
+  /// No description provided for @articleListEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No articles available'**
+  String get articleListEmpty;
+
+  /// No description provided for @noDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No description available.'**
+  String get noDescription;
+
+  /// No description provided for @publishedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'By'**
+  String get publishedBy;
+
+  /// No description provided for @sourcesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load sources'**
+  String get sourcesError;
+
+  /// No description provided for @sourcesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get sourcesEmpty;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
 }
 
 class _AppLocalizationsDelegate
@@ -255,6 +297,6 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
+        'that was used.'
   );
 }

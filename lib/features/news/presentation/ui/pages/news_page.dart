@@ -42,7 +42,7 @@ class _NewsPageState extends State<NewsPage> {
     return DefaultTabController(
       length: sources.isEmpty ? 1 : sources.length,
       child: CustomScaffold(
-        title: category!.name,
+        title: category!.localizedName(context),
         onHomeClick: onHomeClick,
         bottom: provider.isLoading || sources.isEmpty
             ? null
@@ -84,7 +84,7 @@ class _NewsPageState extends State<NewsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Failed to load sources", style: context.text.bodyMedium),
+              Text(context.l10n.sourcesError, style: context.text.bodyMedium),
               SizedBox(height: AppSpacing.md),
               ElevatedButton(
                 onPressed: () async {
@@ -92,7 +92,7 @@ class _NewsPageState extends State<NewsPage> {
                     category!.id,
                   );
                 },
-                child: Text("Retry"),
+                child: Text(context.l10n.retry),
               ),
             ],
           ),
@@ -104,7 +104,7 @@ class _NewsPageState extends State<NewsPage> {
     if (sources.isEmpty) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-        child: Center(child: Text("No data")),
+        child: Center(child: Text(context.l10n.sourcesEmpty)),
       );
     }
 

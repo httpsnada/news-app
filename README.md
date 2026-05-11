@@ -66,8 +66,7 @@ lib/
 ├── features/
 │   └── news/
 │       ├── data/
-│       ├── presentation/
-│       └── viewmodels/
+│       └── presentation/
 │
 └── main.dart
 ```

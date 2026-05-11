@@ -70,7 +70,7 @@ class ArticleDialog extends StatelessWidget {
                   foregroundColor: context.colors.onPrimary,
                   backgroundColor: context.colors.primary,
                 ),
-                child: Text("Read Full Article"),
+                child: Text(context.l10n.readFullArticle),
               ),
             ),
           ],

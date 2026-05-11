@@ -71,4 +71,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get readFullArticle => 'Read Full Article';
+
+  @override
+  String get articleListError => 'Failed to load articles';
+
+  @override
+  String get articleListEmpty => 'No articles available';
+
+  @override
+  String get noDescription => 'No description available.';
+
+  @override
+  String get publishedBy => 'By';
+
+  @override
+  String get sourcesError => 'Failed to load sources';
+
+  @override
+  String get sourcesEmpty => 'No data';
+
+  @override
+  String get retry => 'Retry';
 }

@@ -56,7 +56,7 @@ class ArticleCard extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    "By : ${article.author}",
+                    "${context.l10n.publishedBy} : ${article.author}",
                     style: context.text.bodySmall,
                     overflow: TextOverflow.ellipsis,
                   ),
