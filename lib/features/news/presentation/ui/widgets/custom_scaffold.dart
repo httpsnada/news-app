@@ -64,7 +64,7 @@ class CustomScaffold extends StatelessWidget {
                 onHomeClick();
               },
               leading: Icon(Icons.home),
-              title: Text(AppStrings.back),
+              title: Text(context.l10n.back),
             ),
 
             Divider(),
@@ -76,10 +76,10 @@ class CustomScaffold extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Theme", style: TextStyle(color: AppColors.light),),
+                  Text(context.l10n.themeKey,
+                    style: TextStyle(color: AppColors.light),),
                   SizedBox(height: AppSpacing.md,),
                   ThemeDropDown(),
-
                 ],
               ),
             ),

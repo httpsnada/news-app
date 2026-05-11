@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/core/constants/app_strings.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/categories/category_model.dart';
@@ -16,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Home",
+      title: context.l10n.home,
       onHomeClick: () {},
       body: Padding(
         padding: EdgeInsets.all(AppSpacing.md),
@@ -25,7 +24,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              AppStrings.homeTitle1,
+              context.l10n.homeTitle1,
               textAlign: TextAlign.start,
               style: context.text.titleLarge,
             ),
@@ -33,7 +32,7 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 2),
 
             Text(
-              AppStrings.homeTitle2,
+              context.l10n.homeTitle2,
               textAlign: TextAlign.start,
               style: context.text.titleLarge,
             ),

@@ -9,6 +9,8 @@ import 'features/news/presentation/state/news_provider.dart';
 import 'features/news/presentation/state/sources_provider.dart';
 import 'features/news/presentation/ui/pages/home_page.dart';
 import 'features/news/presentation/ui/pages/news_page.dart';
+import 'l10n/app_localizations.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +47,9 @@ class MyApp extends StatelessWidget {
       themeMode: themeProvider.themeMode,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
+      locale: const Locale('ar'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routes: {
         HomePage.routeName: (context) => HomePage(),
         NewsPage.routeName: (context) => NewsPage(),
