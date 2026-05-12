@@ -13,10 +13,16 @@ class NewsRepository {
     required String source,
     int page = 1,
     int pageSize = 10,
+    required String language,
   }) async {
     final response = await apiService.get(
       endpoint: EndPoints.newsEndpoint,
-      queryParameters: {'sources': source, 'page': page, 'pageSize': pageSize},
+        queryParameters: {
+          'sources': source,
+          'page': page,
+          'pageSize': pageSize,
+          'language': language
+        }
     );
     // final List<dynamic>? articles = response['articles'];
     // if (articles == null) {
@@ -43,10 +49,11 @@ class NewsRepository {
 
   Future<SourceModel> getTopHeadlines({
     required String category,
+    required String language,
   }) async {
     final response = await apiService.get(
       endpoint: EndPoints.sourcesEndpoint,
-      queryParameters: {'category': category},
+      queryParameters: {'category': category, 'language': language},
     );
 
     final sourceModel = SourceModel.fromJson(response);

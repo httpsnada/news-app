@@ -10,14 +10,15 @@ class NewsProvider extends ChangeNotifier {
   bool isLoading = false;
   String? error;
 
-  Future<void> fetchArticles(String source) async {
+  Future<void> fetchArticles(String source, String language) async {
     isLoading = true;
     notifyListeners();
 
     try {
       final repo = ServiceLocator.newsRepository;
 
-      final result = await repo.getArticlesBySource(source: source);
+      final result = await repo.getArticlesBySource(
+          source: source, language: language);
       articleModel = result;
     } catch (e) {
       error = e.toString();

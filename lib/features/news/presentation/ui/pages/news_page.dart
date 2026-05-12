@@ -7,6 +7,7 @@ import 'package:news_app/features/news/presentation/ui/widgets/article_list.dart
 import 'package:news_app/features/news/presentation/ui/widgets/custom_scaffold.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/state/language_provider.dart';
 import '../../../data/models/categories/category_model.dart';
 
 class NewsPage extends StatefulWidget {
@@ -21,16 +22,47 @@ class NewsPage extends StatefulWidget {
 class _NewsPageState extends State<NewsPage> {
   CategoryModel? category;
   bool isInit = true;
+  String? previousLanguage;
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   final locale = context.read<LanguageProvider>().language;
+  //
+  //   if (isInit) {
+  //     category = ModalRoute.of(context)?.settings.arguments as CategoryModel;
+  //     Future.microtask(() {
+  //       context.read<SourcesProvider>().fetchTopHeadlines(category!.id, locale.languageCode);
+  //     });
+  //     isInit = false;
+  //   }
+  // }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (isInit) {
-      category = ModalRoute.of(context)?.settings.arguments as CategoryModel;
+
+    category ??=
+    ModalRoute
+        .of(context)
+        ?.settings
+        .arguments as CategoryModel;
+
+    final currentLanguage =
+        context
+            .watch<LanguageProvider>()
+            .language
+            .languageCode;
+
+    if (previousLanguage != currentLanguage) {
+      previousLanguage = currentLanguage;
+
       Future.microtask(() {
-        context.read<SourcesProvider>().fetchTopHeadlines(category!.id);
+        context.read<SourcesProvider>().fetchTopHeadlines(
+          category!.id,
+          currentLanguage,
+        );
       });
-      isInit = false;
     }
   }
 
@@ -89,7 +121,10 @@ class _NewsPageState extends State<NewsPage> {
               ElevatedButton(
                 onPressed: () async {
                   await context.read<SourcesProvider>().fetchTopHeadlines(
-                    category!.id,
+                    category!.id, context
+                      .read<LanguageProvider>()
+                      .language
+                      .languageCode,
                   );
                 },
                 child: Text(context.l10n.retry),
@@ -112,7 +147,7 @@ class _NewsPageState extends State<NewsPage> {
       padding: EdgeInsets.all(AppSpacing.md),
       child: TabBarView(
         children: sources.map((source) {
-          return ArticleList(key: ValueKey(source.id), source: source);
+          return ArticleList(key: ValueKey(source.id), source: source,);
         }).toList(),
       ),
     );

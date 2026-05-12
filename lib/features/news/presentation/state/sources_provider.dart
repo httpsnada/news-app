@@ -8,14 +8,15 @@ class SourcesProvider extends ChangeNotifier {
   bool isLoading = false;
   String? error;
 
-  Future<void> fetchTopHeadlines(String category) async {
+  Future<void> fetchTopHeadlines(String category, String language) async {
     isLoading = true;
     notifyListeners();
 
     try {
       final repo = ServiceLocator.newsRepository;
 
-      final result = await repo.getTopHeadlines(category: category);
+      final result = await repo.getTopHeadlines(
+          category: category, language: language);
       sourceModel = result;
     } catch (e) {
       error = e.toString();

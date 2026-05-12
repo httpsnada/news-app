@@ -5,6 +5,8 @@ import 'package:news_app/features/news/presentation/state/news_provider.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/article_card.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/state/language_provider.dart';
+
 class ArticleList extends StatefulWidget {
   final Source source;
 
@@ -16,9 +18,9 @@ class ArticleList extends StatefulWidget {
 
 class _ArticleListState extends State<ArticleList>
     with AutomaticKeepAliveClientMixin {
-
   @override
   bool get wantKeepAlive => true;
+  String? previousLanguage;
 
   // not to reload and recall the api for each tab, and saving them in memory instead
 
@@ -28,8 +30,32 @@ class _ArticleListState extends State<ArticleList>
     // final repo = ServiceLocator.newsRepository;
     // articleFuture = repo.getArticlesBySource(source: widget.source.id ?? "");
     Future.microtask(() {
-      context.read<NewsProvider>().fetchArticles(widget.source.id ?? "");
+      context.read<NewsProvider>().fetchArticles(
+        widget.source.id ?? "",
+        context.read<LanguageProvider>().language.languageCode,
+      );
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final currentLanguage = context
+        .watch<LanguageProvider>()
+        .language
+        .languageCode;
+
+    if (previousLanguage != currentLanguage) {
+      previousLanguage = currentLanguage;
+
+      Future.microtask(() {
+        context.read<NewsProvider>().fetchArticles(
+          widget.source.id ?? '',
+          currentLanguage,
+        );
+      });
+    }
   }
 
   @override
@@ -54,8 +80,10 @@ class _ArticleListState extends State<ArticleList>
 
         return RefreshIndicator(
           onRefresh: () async {
-            await context.read<NewsProvider>().fetchArticles(widget.source.id ??
-                "");
+            await context.read<NewsProvider>().fetchArticles(
+              widget.source.id ?? "",
+              context.read<LanguageProvider>().language.languageCode,
+            );
           },
           child: ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
