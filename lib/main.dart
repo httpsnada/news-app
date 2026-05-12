@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:news_app/core/state/language_provider.dart';
 import 'package:news_app/core/state/theme_provider.dart';
 import 'package:news_app/core/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,9 @@ void main() async {
   final themeProvider = ThemeProvider();
   await themeProvider.loadTheme();
 
+  final languageProvider = LanguageProvider();
+  await languageProvider.loadLocale();
+
   try {
     await dotenv.load(fileName: ".env");
   } catch (e) {
@@ -28,6 +32,7 @@ void main() async {
       MultiProvider(
           providers: [
             ChangeNotifierProvider.value(value: themeProvider),
+            ChangeNotifierProvider.value(value: languageProvider),
             ChangeNotifierProvider(create: (context) => SourcesProvider()),
             ChangeNotifierProvider(create: (context) => NewsProvider()),
           ],
@@ -41,13 +46,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
+    final languageProvider = context.watch<LanguageProvider>();
     return MaterialApp(
       title: 'News',
       debugShowCheckedModeBanner: false,
       themeMode: themeProvider.themeMode,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      locale: const Locale('ar'),
+      locale: languageProvider.language,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routes: {

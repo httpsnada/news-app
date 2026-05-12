@@ -50,6 +50,13 @@ extension CategoryLocalization on CategoryModel {
   }
 }
 
+// Get Language Code
+extension LocaleExtension on Locale {
+  String get apiLanguageCode {
+    return languageCode;
+  }
+}
+
 // DateFormat
 extension StringtoDate on String {
   String formatNewsDate() {

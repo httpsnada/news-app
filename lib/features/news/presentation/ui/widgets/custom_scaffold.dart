@@ -3,6 +3,7 @@ import 'package:news_app/core/constants/app_strings.dart';
 import 'package:news_app/core/theme/app_colors.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
+import 'package:news_app/features/news/presentation/ui/widgets/language_drop_down.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/theme_drop_down.dart';
 
 class CustomScaffold extends StatelessWidget {
@@ -80,6 +81,25 @@ class CustomScaffold extends StatelessWidget {
                     style: TextStyle(color: AppColors.light),),
                   SizedBox(height: AppSpacing.md,),
                   ThemeDropDown(),
+                ],
+              ),
+            ),
+
+            SizedBox(height: AppSpacing.md,),
+
+            Divider(),
+
+            SizedBox(height: AppSpacing.md,),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(context.l10n.languageKey,
+                    style: TextStyle(color: AppColors.light),),
+                  SizedBox(height: AppSpacing.md,),
+                  LanguageDropDown(),
                 ],
               ),
             ),

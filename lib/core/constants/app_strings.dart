@@ -8,4 +8,9 @@ class AppStrings {
   static const String themeKey = "theme";
   static const String lightMode = "light";
   static const String darkMode = "dark";
+
+  //Locale
+  static const String languageKey = "language";
+  static const String english = "en";
+  static const String arabic = "ar";
 }
