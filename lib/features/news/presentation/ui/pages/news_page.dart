@@ -24,35 +24,20 @@ class _NewsPageState extends State<NewsPage> {
   bool isInit = true;
   String? previousLanguage;
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   final locale = context.read<LanguageProvider>().language;
-  //
-  //   if (isInit) {
-  //     category = ModalRoute.of(context)?.settings.arguments as CategoryModel;
-  //     Future.microtask(() {
-  //       context.read<SourcesProvider>().fetchTopHeadlines(category!.id, locale.languageCode);
-  //     });
-  //     isInit = false;
-  //   }
-  // }
+  // We use didChangeDependencies() bc we are receiving an inherited context argument
+  // didChangeDependencies() runs after Flutter has connected the widget to inherited widgets
+  // route-dependent inherited context can still be unavailable during initState()
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    category ??=
-    ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as CategoryModel;
+    category ??= ModalRoute.of(context)?.settings.arguments as CategoryModel;
 
-    final currentLanguage =
-        context
-            .watch<LanguageProvider>()
-            .language
-            .languageCode;
+    final currentLanguage = context
+        .watch<LanguageProvider>()
+        .language
+        .languageCode;
 
     if (previousLanguage != currentLanguage) {
       previousLanguage = currentLanguage;
@@ -121,10 +106,8 @@ class _NewsPageState extends State<NewsPage> {
               ElevatedButton(
                 onPressed: () async {
                   await context.read<SourcesProvider>().fetchTopHeadlines(
-                    category!.id, context
-                      .read<LanguageProvider>()
-                      .language
-                      .languageCode,
+                    category!.id,
+                    context.read<LanguageProvider>().language.languageCode,
                   );
                 },
                 child: Text(context.l10n.retry),
@@ -147,7 +130,7 @@ class _NewsPageState extends State<NewsPage> {
       padding: EdgeInsets.all(AppSpacing.md),
       child: TabBarView(
         children: sources.map((source) {
-          return ArticleList(key: ValueKey(source.id), source: source,);
+          return ArticleList(key: ValueKey(source.id), source: source);
         }).toList(),
       ),
     );

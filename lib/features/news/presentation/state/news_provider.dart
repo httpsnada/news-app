@@ -6,7 +6,6 @@ import '../../../../core/di/service_locator.dart';
 class NewsProvider extends ChangeNotifier {
   ArticlesModel? articleModel;
 
-  //  List<Articles> articles = [];
   bool isLoading = false;
   String? error;
 
