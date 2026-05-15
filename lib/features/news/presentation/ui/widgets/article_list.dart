@@ -21,14 +21,14 @@ class _ArticleListState extends State<ArticleList>
   @override
   bool get wantKeepAlive => true;
   String? previousLanguage;
+  late final ScrollController _controller;
 
   // not to reload and recall the api for each tab, and saving them in memory instead
 
   @override
   void initState() {
     super.initState();
-    // final repo = ServiceLocator.newsRepository;
-    // articleFuture = repo.getArticlesBySource(source: widget.source.id ?? "");
+    _controller = ScrollController()..addListener(_onScroll);
     Future.microtask(() {
       context.read<NewsProvider>().fetchArticles(
         widget.source.id ?? "",
@@ -56,6 +56,38 @@ class _ArticleListState extends State<ArticleList>
         );
       });
     }
+  }
+
+  void _onScroll() {
+    if (!_controller.hasClients) return;
+
+    final position = _controller.position;
+
+    if (position.pixels >= position.maxScrollExtent - 300) {
+      context.read<NewsProvider>().fetchArticles(
+        widget.source.id!,
+        context.read<LanguageProvider>().language.languageCode,
+        loadMore: true,
+      );
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant ArticleList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.source.id != widget.source.id) {
+      context.read<NewsProvider>().fetchArticles(
+        widget.source.id!,
+        context.read<LanguageProvider>().language.languageCode,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -86,11 +118,21 @@ class _ArticleListState extends State<ArticleList>
             );
           },
           child: ListView.builder(
+            controller: _controller,
             physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: articles.length,
+            itemCount:
+                provider.articles.length + (provider.isLoadingMore ? 1 : 0),
             itemBuilder: (context, index) {
-              final article = articles[index];
-              return ArticleCard(article: article);
+              if (index == provider.articles.length) {
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+
+              return ArticleCard(article: provider.articles[index]);
             },
           ),
         );

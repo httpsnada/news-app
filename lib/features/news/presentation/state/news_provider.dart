@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/features/news/data/models/articles/Articles.dart';
 import 'package:news_app/features/news/data/models/articles/Articles_model.dart';
 
 import '../../../../core/di/service_locator.dart';
@@ -6,24 +7,73 @@ import '../../../../core/di/service_locator.dart';
 class NewsProvider extends ChangeNotifier {
   ArticlesModel? articleModel;
 
-  bool isLoading = false;
-  String? error;
+  final List<Articles> _articles = [];
 
-  Future<void> fetchArticles(String source, String language) async {
-    isLoading = true;
+  List<Articles> get articles => _articles;
+
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  bool _isLoadingMore = false;
+
+  bool get isLoadingMore => _isLoadingMore;
+
+  bool _hasMore = true;
+
+  bool get hasMore => _hasMore;
+
+  String? _error;
+
+  String? get error => _error;
+
+  int _page = 1;
+  static const int _pageSize = 20;
+
+  Future<void> fetchArticles(
+    String source,
+    String language, {
+    bool loadMore = false,
+  }) async {
+    if (_isLoading || _isLoadingMore) return;
+    if (loadMore && !_hasMore) return;
+
+    if (loadMore) {
+      _isLoadingMore = true;
+    } else {
+      _isLoading = true;
+      _page = 1;
+      _articles.clear();
+      _hasMore = true;
+    }
+
+    _error = null;
     notifyListeners();
 
     try {
       final repo = ServiceLocator.newsRepository;
-
       final result = await repo.getArticlesBySource(
-          source: source, language: language);
+        source: source,
+        language: language,
+        page: _page,
+        pageSize: _pageSize,
+      );
       articleModel = result;
+      final newArticles = result.articles ?? [];
+
+      _articles.addAll(newArticles);
+
+      _hasMore = newArticles.length == _pageSize;
+
+      if (_hasMore) {
+        _page++;
+      }
     } catch (e) {
-      error = e.toString();
+      _error = e.toString();
     }
 
-    isLoading = false;
+    _isLoading = false;
+    _isLoadingMore = false;
     notifyListeners();
   }
 }
