@@ -3,6 +3,7 @@ import 'package:news_app/core/constants/app_strings.dart';
 import 'package:news_app/core/theme/app_colors.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
+import 'package:news_app/features/news/presentation/ui/pages/search_page.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/language_drop_down.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/theme_drop_down.dart';
 
@@ -29,7 +30,7 @@ class CustomScaffold extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // TODO: navigate to search
+              Navigator.pushNamed(context, SearchPage.routeName);
             },
             icon: Icon(Icons.search, size: 24),
           ),

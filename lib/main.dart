@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/core/state/language_provider.dart';
 import 'package:news_app/core/state/theme_provider.dart';
 import 'package:news_app/core/theme/app_theme.dart';
+import 'package:news_app/features/news/presentation/ui/pages/search_page.dart';
 import 'package:provider/provider.dart';
 
 import 'core/storage/cache_helper.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomePage.routeName: (context) => HomePage(),
         NewsPage.routeName: (context) => NewsPage(),
+        SearchPage.routeName: (context) => SearchPage()
       },
       initialRoute: HomePage.routeName,
     );
