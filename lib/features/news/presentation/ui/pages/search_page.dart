@@ -106,7 +106,10 @@ class _SearchPageState extends State<SearchPage> {
 
                       if (articles.isEmpty) {
                         return Center(child: Text(
-                            context.l10n.articleListEmpty));
+                          provider.hasSearched
+                              ? context.l10n.articleListEmpty
+                              : context.l10n.search,
+                        ));
                       }
 
                       return ListView.builder(

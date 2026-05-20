@@ -7,12 +7,9 @@ import 'package:news_app/features/news/presentation/ui/pages/search_page.dart';
 import 'package:provider/provider.dart';
 
 import 'core/storage/cache_helper.dart';
-import 'features/news/presentation/state/news_provider.dart';
-import 'features/news/presentation/state/sources_provider.dart';
 import 'features/news/presentation/ui/pages/home_page.dart';
 import 'features/news/presentation/ui/pages/news_page.dart';
 import 'l10n/app_localizations.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,14 +27,14 @@ void main() async {
     print("ENV ERROR: $e");
   }
   runApp(
-      MultiProvider(
-          providers: [
-            ChangeNotifierProvider.value(value: themeProvider),
-            ChangeNotifierProvider.value(value: languageProvider),
-            ChangeNotifierProvider(create: (context) => SourcesProvider()),
-            ChangeNotifierProvider(create: (context) => NewsProvider()),
-          ],
-          child: const MyApp()));
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: themeProvider),
+        ChangeNotifierProvider.value(value: languageProvider),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -60,10 +57,9 @@ class MyApp extends StatelessWidget {
       routes: {
         HomePage.routeName: (context) => HomePage(),
         NewsPage.routeName: (context) => NewsPage(),
-        SearchPage.routeName: (context) => SearchPage()
+        SearchPage.routeName: (context) => SearchPage(),
       },
       initialRoute: HomePage.routeName,
     );
   }
 }
-

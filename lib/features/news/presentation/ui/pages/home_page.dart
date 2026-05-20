@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/categories/category_model.dart';
+import 'package:news_app/features/news/presentation/state/news_provider.dart';
+import 'package:news_app/features/news/presentation/state/sources_provider.dart';
 import 'package:news_app/features/news/presentation/ui/pages/news_page.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/category_chip.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/custom_scaffold.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = 'home';
@@ -45,10 +48,22 @@ class HomePage extends StatelessWidget {
                   var category = categories[index];
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(
+                      Navigator.push(
                         context,
-                        NewsPage.routeName,
-                        arguments: category,
+                        MaterialPageRoute(
+                          settings: RouteSettings(arguments: category),
+                          builder: (_) => MultiProvider(
+                            providers: [
+                              ChangeNotifierProvider(
+                                create: (_) => SourcesProvider(),
+                              ),
+                              ChangeNotifierProvider(
+                                create: (_) => NewsProvider(),
+                              ),
+                            ],
+                            child: NewsPage(),
+                          ),
+                        ),
                       );
                     },
                     child: CategoryChip(category: category, index: index),
@@ -66,4 +81,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-

@@ -23,6 +23,10 @@ class SearchProvider extends ChangeNotifier {
 
   bool get hasMore => _hasMore;
 
+  bool _hasSearched = false;
+
+  bool get hasSearched => _hasSearched;
+
   String? _error;
 
   String? get error => _error;
@@ -74,6 +78,7 @@ class SearchProvider extends ChangeNotifier {
       if (_hasMore) {
         _page++;
       }
+      _hasSearched = true;
     } catch (e) {
       _error = e.toString();
     }
@@ -89,6 +94,7 @@ class SearchProvider extends ChangeNotifier {
     _hasMore = true;
     _error = null;
     articleModel = null;
+    _hasSearched = false;
     _currentKeyword = '';
     notifyListeners();
   }
