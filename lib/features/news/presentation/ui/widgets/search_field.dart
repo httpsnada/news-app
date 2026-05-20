@@ -6,6 +6,7 @@ import '../../../../../core/utils/spacing.dart';
 class SearchField extends StatelessWidget {
   String hintText;
   TextStyle? hintStyle;
+  TextStyle? style;
   Widget? prefixIcon;
   Widget? suffixIcon;
   TextInputType keyboardType;
@@ -16,6 +17,7 @@ class SearchField extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.hintStyle,
+    required this.style,
     required this.prefixIcon,
     required this.suffixIcon,
     this.keyboardType = TextInputType.text,
@@ -28,7 +30,9 @@ class SearchField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      style: style,
       autofocus: true,
+      cursorColor: context.colors.onPrimary,
       onFieldSubmitted: onFieldSubmitted,
       decoration: InputDecoration(
         hintText: hintText,

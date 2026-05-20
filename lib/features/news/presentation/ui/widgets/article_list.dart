@@ -103,8 +103,7 @@ class _ArticleListState extends State<ArticleList>
           return Center(child: Text(context.l10n.articleListError));
         }
 
-        final results = provider.articleModel;
-        final articles = results!.articles ?? [];
+        final articles = provider.articles;
 
         if (articles.isEmpty) {
           return Center(child: Text(context.l10n.articleListEmpty));
