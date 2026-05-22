@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
+import 'package:news_app/features/news/presentation/state/news_provider.dart';
 import 'package:news_app/features/news/presentation/state/sources_provider.dart';
 import 'package:news_app/features/news/presentation/ui/pages/home_page.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/article_list.dart';
@@ -130,7 +131,10 @@ class _NewsPageState extends State<NewsPage> {
       padding: EdgeInsets.all(AppSpacing.md),
       child: TabBarView(
         children: sources.map((source) {
-          return ArticleList(key: ValueKey(source.id), source: source);
+          return ChangeNotifierProvider(
+            create: (_) => NewsProvider(),
+            child: ArticleList(key: ValueKey(source.id), source: source),
+          );
         }).toList(),
       ),
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/spacing.dart';
 import 'package:news_app/features/news/data/models/categories/category_model.dart';
-import 'package:news_app/features/news/presentation/state/news_provider.dart';
 import 'package:news_app/features/news/presentation/state/sources_provider.dart';
 import 'package:news_app/features/news/presentation/ui/pages/news_page.dart';
 import 'package:news_app/features/news/presentation/ui/widgets/category_chip.dart';
@@ -52,15 +51,8 @@ class HomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           settings: RouteSettings(arguments: category),
-                          builder: (_) => MultiProvider(
-                            providers: [
-                              ChangeNotifierProvider(
-                                create: (_) => SourcesProvider(),
-                              ),
-                              ChangeNotifierProvider(
-                                create: (_) => NewsProvider(),
-                              ),
-                            ],
+                          builder: (_) => ChangeNotifierProvider(
+                            create: (_) => SourcesProvider(),
                             child: NewsPage(),
                           ),
                         ),
